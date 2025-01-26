@@ -1,0 +1,22 @@
+general:
+  kafka-topic: transaction-topic # The topic name used by both producer and consumer
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:0 # Kafka broker for embedded Kafka
+    consumer:
+      group-id: test-group # Kafka consumer group ID
+      auto-offset-reset: earliest # Start consuming from the earliest message if no offset exists
+      enable-auto-commit: true # Automatically commit offsets
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    properties:
+      spring:
+        json:
+          trusted:
+            packages: "*" # Allow deserialization of all packages (or specify 'com.jpmc.midascore.foundation')
+  application:
+    name: kafka-springboot-maven
